@@ -20,13 +20,14 @@ export default function Cards()
 
             const data = await Promise.all(meals.map(async (meal) =>
             {
-                const mealData = await getMeal(meal?.idMeal);
+                const mealData = await getMeal(meal.idMeal);
                 return {
-                    name: mealData?.strMeal,
-                    category: mealData?.strCategory,
-                    country: mealData?.strArea,
-                    tags: mealData?.strTags?.split(','),
-                    image: mealData?.strMealThumb
+                    id: mealData.idMeal,
+                    name: mealData.strMeal,
+                    category: mealData.strCategory,
+                    country: mealData.strArea,
+                    tags: mealData.strTags?.split(','),
+                    image: mealData.strMealThumb
                 };
             }));
 
@@ -53,10 +54,12 @@ export default function Cards()
             </div>
             <div className="mt-12 flex justify-center gap-2">
                 {cardList && <>
-                    <button className={`${pageNumber <= 1 ? "btn-disabled" : 'btn-info'} btn-sm font-bold rounded-md btn-outline border-3 border-solid transition-transform duration-300 ease-in-out transform hover:scale-110`}
+                    <button className={`${pageNumber <= 1 ? "btn-disabled bg-gray-700 text-black border-black opacity-45" : 'bg-blue-600'} px-1 py-1 border-solid border-2 font-bold rounded-md text-white transition-transform duration-300 ease-in-out transform hover:scale-110`}
                         onClick={() => setPageNumber(pageNumber - 1)}>&lt; &lt; Previous Page</button>
-                    <div className="px-2 border-solid font-bold rounded-md text-red-500">{pageNumber}</div>
-                    <button className={`${Math.ceil(cardList.length / MAX_PAGE_ITEMS) <= pageNumber ? "btn-disabled" : 'btn-success'} font-bold btn-sm rounded-md btn-outline border-3 border-solid transition-transform duration-300 ease-in-out transform hover:scale-110`}
+                    <div className="rounded-btn flex items-center justify-center bg-gray-200">
+                        <h1 className="font-bold text-black px-2">{pageNumber}</h1>
+                    </div>
+                    <button className={`${Math.ceil(cardList.length / MAX_PAGE_ITEMS) <= pageNumber ? "btn-disabled bg-gray-700 text-black border-black opacity-45" : 'bg-blue-600'} font-bold border-solid border-2 px-2 py-1 rounded-md text-white transition-transform duration-300 ease-in-out transform hover:scale-110`}
                         onClick={() => setPageNumber(pageNumber + 1)}>Next Page &gt;&gt;</button>
                 </>}
             </div>

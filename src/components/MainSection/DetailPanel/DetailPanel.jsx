@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaYoutube, FaTag, FaGlobeAmericas, FaUtensils } from 'react-icons/fa';
+import { FaUniversity, FaTag, FaUtensils } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { getMeal } from "../../../context/api/api";
 
@@ -8,12 +8,13 @@ function getIngredients(mealData)
     let result = [];
     for (let idx = 1; idx <= 20; idx++)
     {
-        if (!mealData.get(`strIngredient${idx}`)) return result;
+        if (!mealData[`strIngredient${idx}`]) return result;
 
-        result.concat({ name: mealData.get(`strIngredient${idx}`), measurement: mealData.get(`strMeasure${idx}`) });
+        result.push({ name: mealData[`strIngredient${idx}`], measurement: mealData[`strMeasure${idx}`] });
     }
     return result;
 }
+
 
 const DetailPanel = () =>
 {
@@ -29,14 +30,15 @@ const DetailPanel = () =>
             const mealData = await getMeal(params.id);
 
             setMeal({
-                name: mealData?.strMeal,
-                image: mealData?.strMealThumb,
-                youtubeId: mealData?.strYoutube,
+                id: mealData.idMeal,
+                name: mealData.strMeal,
+                image: mealData.strMealThumb,
+                youtubeURL: mealData.strYoutube.replace(".com/watch?v=", ".com/embed/"),
                 ingredients: getIngredients(mealData),
-                recipe: mealData?.strInstructions.split("."),
-                tags: mealData?.strTags?.split(','),
-                origin: mealData?.strArea,
-                category: mealData?.strCategory
+                recipe: mealData.strInstructions.split(".").slice(0, -1),
+                tags: mealData.strTags?.split(','),
+                origin: mealData.strArea,
+                category: mealData.strCategory
             });
 
         })();
@@ -64,7 +66,7 @@ const DetailPanel = () =>
                             </div>
                             <div className='h-64'>
                                 <iframe
-                                    src={`https://www.youtube.com/embed/${meal.youtubeId}`}
+                                    src={meal.youtubeURL}
                                     allow="accelerometer; clipboard-write; encrypted-media; gyroscope;"
                                     allowFullScreen
                                     className="w-full h-full rounded-lg"
@@ -72,14 +74,14 @@ const DetailPanel = () =>
                             </div>
                         </div>
 
-                        <div className="space-y-6">
+                        <div className="space-y-5">
                             <div>
                                 <h2 className="text-xl font-semibold mb-2 flex items-center">
                                     <FaUtensils className="mr-2" /> Ingredients
                                 </h2>
-                                <div className={`transition-all duration-500 ${isIngredientExpanded ? 'max-h-96' : 'max-h-24'} overflow-hidden`}>
+                                <div className={`transition-all duration-500 ${isIngredientExpanded ? 'max-h-svh' : 'max-h-24'} overflow-hidden`}>
                                     <ul className="list-disc list-inside">
-                                        {meal.ingredients.map((ingredient, index) => (
+                                        {meal.ingredients?.map((ingredient, index) => (
                                             <li key={index}>{ingredient.name} - {ingredient.measurement}</li>
                                         ))}
                                     </ul>
@@ -97,10 +99,10 @@ const DetailPanel = () =>
 
                             <div>
                                 <h2 className="text-xl font-semibold mb-2">Recipe</h2>
-                                <div className={`transition-all duration-500 ${isRecipeExpanded ? 'max-h-96' : 'max-h-24'} overflow-hidden`}>
+                                <div className={`transition-all duration-500 ${isRecipeExpanded ? 'max-h-svh' : 'max-h-28'} overflow-hidden`}>
                                     <ol className="list-decimal list-inside">
                                         {meal.recipe.map((step, index) => (
-                                            <li key={index} className="mb-2">{step}</li>
+                                            <li key={index} className="mb-2 max-w-lg">{step}</li>
                                         ))}
                                     </ol>
                                 </div>
@@ -108,7 +110,7 @@ const DetailPanel = () =>
 
                                     <button
                                         onClick={() => setIsRecipeExpanded(!isRecipeExpanded)}
-                                        className="text-blue-400 hover:text-blue-300 mt-1 focus:outline-none"
+                                        className="text-blue-400 hover:text-blue-300 pt-2 focus:outline-none"
                                     >
                                         {isRecipeExpanded ? 'Show Less' : 'Show More'}
                                     </button>
@@ -120,7 +122,7 @@ const DetailPanel = () =>
                                     <FaTag className="mr-2" /> Tags
                                 </h2>
                                 <div className="flex flex-wrap gap-2">
-                                    {meal.tags.map((tag, index) => (
+                                    {meal.tags?.map((tag, index) => (
                                         <span key={index} className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm">
                                             {tag}
                                         </span>
@@ -129,7 +131,7 @@ const DetailPanel = () =>
                             </div>
 
                             <div className="flex items-center">
-                                <FaGlobeAmericas className="mr-2" />
+                                <FaUniversity className="mr-2" />
                                 <span className="font-semibold">Origin:</span>
                                 <span className="ml-2">{meal.origin}</span>
                             </div>

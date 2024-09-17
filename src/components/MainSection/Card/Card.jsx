@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaUtensils, FaWeight, FaTags, FaReact } from 'react-icons/fa';
-import { IoEarth } from "react-icons/io5";
+import { FaUniversity } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const Card = ({ cardData }) =>
@@ -25,11 +25,11 @@ const Card = ({ cardData }) =>
                             {cardData.category}
                         </p>
                         <p className="mb-2 text-sm text-gray-300 flex items-center">
-                            <IoEarth className="mr-2" />
+                            <FaUniversity className="mr-2" />
                             {cardData.country}
                         </p>
                     </div>
-                    <Link to={`/details/${cardData.idMeal}`} className="btn btn-sm btn-white text-lg">Detail</Link>
+                    <Link to={`/details/${cardData.id}`} className="btn btn-sm bg-blue-600 text-white text-lg">Detail</Link>
 
                 </div>
             </div>

@@ -10,12 +10,12 @@ const NavBar = () =>
     const { category, country, ingredient } = useAPI();
 
     const navItems = [
-        { name: 'Home', to: "/", icon: <FaHome />, dropdownItems: [] },
+        { name: 'Home', to: "/?page=1", icon: <FaHome />, dropdownItems: [] },
         {
             name: 'Ingredients', to: "ingredients", icon: <FaCarrot />, dropdownItems: ingredient ? ingredient.map(ing => ing.strIngredient
             ).slice(0, 14) : []
         },
-        { name: 'Country', to: "country", icon: <FaUniversity />, dropdownItems: country ? country.map(cou => cou.strArea).slice(0, 14) : [] },
+        { name: 'Origin', to: "origin", icon: <FaUniversity />, dropdownItems: country ? country.map(cou => cou.strArea).slice(0, 14) : [] },
         { name: 'Category', to: "categories", icon: <FaList />, dropdownItems: category ? category.map(cat => cat.strCategory).slice(0, 14) : [] },
     ];
 
@@ -46,7 +46,7 @@ const NavBar = () =>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
-                        <Link to={'/'} className="flex-shrink-0 text-2xl font-bold">FoodShop</Link>
+                        <Link to={'/?page=1'} className="flex-shrink-0 text-2xl font-bold">FoodShop</Link>
                     </div>
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
