@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Card from "../../Card/Card";
+import Card from "../Card/Card";
 import { getMeal, useAPI } from "../../../context/api/api";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
