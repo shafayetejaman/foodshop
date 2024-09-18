@@ -10,13 +10,13 @@ const NavBar = () =>
     const { category, country, ingredient } = useAPI();
 
     const navItems = [
-        { name: 'Home', to: "/?page=1", icon: <FaHome />, dropdownItems: [] },
+        { name: 'Home', to: "/page/1", icon: <FaHome />, dropdownItems: [] },
         {
-            name: 'Ingredients', to: "ingredients", icon: <FaCarrot />, dropdownItems: ingredient ? ingredient.map(ing => ing.strIngredient
+            name: 'Ingredients', to: "/ingredients", icon: <FaCarrot />, dropdownItems: ingredient ? ingredient.map(ing => ing.strIngredient
             ).slice(0, 14) : []
         },
-        { name: 'Origin', to: "origin", icon: <FaUniversity />, dropdownItems: country ? country.map(cou => cou.strArea).slice(0, 14) : [] },
-        { name: 'Category', to: "categories", icon: <FaList />, dropdownItems: category ? category.map(cat => cat.strCategory).slice(0, 14) : [] },
+        { name: 'Origin', to: "/origin", icon: <FaUniversity />, dropdownItems: country ? country.map(cou => cou.strArea).slice(0, 14) : [] },
+        { name: 'Category', to: "/categories", icon: <FaList />, dropdownItems: category ? category.map(cat => cat.strCategory).slice(0, 14) : [] },
     ];
 
     useEffect(() =>
@@ -63,7 +63,7 @@ const NavBar = () =>
                                             {item.dropdownItems.map((dropdownItem) => (
                                                 <Link
                                                     key={dropdownItem}
-                                                    to={`/?${item.to}=${dropdownItem.replace(/\s+/g, "-")}`}
+                                                    to={`${item.to}/${dropdownItem.replace(/\s+/g, "-").toLowerCase()}/page/1`}
 
                                                     className="block px-4 py-2 text-sm text-white hover:bg-gray-100 hover:text-gray-900"
                                                     role="menuitem"

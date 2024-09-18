@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Card from "../Card/Card";
 import { getMeal, useAPI } from "../../../context/api/api";
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const MAX_PAGE_ITEMS = 12;
 
-export default function Cards()
+export default function Cards({ url = "" })
 {
     const [cardList, setCardList] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
-    const { meals } = useAPI();
+    const params = useParams();
+    const [pageNumber, setPageNumber] = useState(parseInt(params.page) || 1);
+    const {meals} = useAPI()
     const navigate = useNavigate();
 
     useEffect(() =>
@@ -38,7 +39,12 @@ export default function Cards()
 
     useEffect(() =>
     {
-        navigate(`/?page=${pageNumber}`);
+        navigate(`${url}${params?.category ? "/" + params?.category : ""}/page/${pageNumber}`);
+
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
 
     }, [pageNumber]);
 

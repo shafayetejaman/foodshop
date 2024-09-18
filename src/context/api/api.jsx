@@ -43,14 +43,14 @@ export default function APIProvider({ children })
     const [category, setCategory] = useState(null);
     const [ingredient, setIngredient] = useState(null);
     const [country, setCountry] = useState(null);
-    const [meals, setMeals] = useState(null);
+    const [meals, setMeals] = useState(null)
 
 
     useEffect(() =>
     {
         (async () =>
         {
-            console.log("api used")
+            console.log("api used");
 
             await axios.get(CategoryURL)
                 .then(res => setCategory(res.data.categories))
@@ -64,7 +64,7 @@ export default function APIProvider({ children })
                 .then(res => setCountry(res.data.meals))
                 .catch(err => console.error(err));
             
-            setMeals((await getMealByCategory("Chicken")))  
+            setMeals(await getMealByCategory('beef'))
 
         })();
 

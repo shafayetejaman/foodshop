@@ -35,7 +35,7 @@ const DetailPanel = () =>
                 image: mealData.strMealThumb,
                 youtubeURL: mealData.strYoutube.replace(".com/watch?v=", ".com/embed/"),
                 ingredients: getIngredients(mealData),
-                recipe: mealData.strInstructions.split(".").slice(0, -1),
+                recipe: mealData.strInstructions.split(".").slice(0, -1).map(s => s.concat(".")),
                 tags: mealData.strTags?.split(','),
                 origin: mealData.strArea,
                 category: mealData.strCategory
@@ -79,7 +79,7 @@ const DetailPanel = () =>
                                 <h2 className="text-xl font-semibold mb-2 flex items-center">
                                     <FaUtensils className="mr-2" /> Ingredients
                                 </h2>
-                                <div className={`transition-all duration-500 ${isIngredientExpanded ? 'max-h-svh' : 'max-h-24'} overflow-hidden`}>
+                                <div className={`transition-all duration-500 ${isIngredientExpanded ? 'max-h-96' : 'max-h-24'} overflow-hidden`}>
                                     <ul className="list-disc list-inside">
                                         {meal.ingredients?.map((ingredient, index) => (
                                             <li key={index}>{ingredient.name} - {ingredient.measurement}</li>
@@ -99,7 +99,8 @@ const DetailPanel = () =>
 
                             <div>
                                 <h2 className="text-xl font-semibold mb-2">Recipe</h2>
-                                <div className={`transition-all duration-500 ${isRecipeExpanded ? 'max-h-svh' : 'max-h-28'} overflow-hidden`}>
+                                <div className={`transition-all duration-500 overflow-hidden`}
+                                    style={isRecipeExpanded ? { maxHeight: "60rem" } : { maxHeight: "7rem" }}>
                                     <ol className="list-decimal list-inside">
                                         {meal.recipe.map((step, index) => (
                                             <li key={index} className="mb-2 max-w-lg">{step}</li>
@@ -107,7 +108,6 @@ const DetailPanel = () =>
                                     </ol>
                                 </div>
                                 {meal.recipe.length > 4 &&
-
                                     <button
                                         onClick={() => setIsRecipeExpanded(!isRecipeExpanded)}
                                         className="text-blue-400 hover:text-blue-300 pt-2 focus:outline-none"
