@@ -50,8 +50,6 @@ export default function APIProvider({ children })
     {
         (async () =>
         {
-            console.log("api used");
-
             await axios.get(CategoryURL)
                 .then(res => setCategory(res.data.categories))
                 .catch(err => console.error(err));

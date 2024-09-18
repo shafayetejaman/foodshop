@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Card from "../Card/Card";
 import { getMeal, useAPI } from "../../../context/api/api";
-import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const MAX_PAGE_ITEMS = 12;
 
 export default function Cards({ url = "" })
 {
     const [cardList, setCardList] = useState(null);
-    const params = useParams();
-    const [pageNumber, setPageNumber] = useState(parseInt(params.page) || 1);
-    const {meals} = useAPI()
-    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [pageNumber, setPageNumber] = useState(parseInt(searchParams.get("page")) || 1);
+    const { meals } = useAPI();
+
 
     useEffect(() =>
     {
@@ -39,7 +39,7 @@ export default function Cards({ url = "" })
 
     useEffect(() =>
     {
-        navigate(`${url}${params?.category ? "/" + params?.category : ""}/page/${pageNumber}`);
+        setSearchParams({ page: pageNumber });
 
         window.scroll({
             top: 0,
@@ -53,7 +53,7 @@ export default function Cards({ url = "" })
 
 
     return (
-        <section className='my-24 md:mx-16 mx-8'>
+        <section className='mt-36 mb-20 md:mx-16 mx-8'>
             {!cardList && <div className='flex justify-center my-20'><span className="loading loading-spinner loading-lg"></span></div>}
             <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10'>
                 {cardList?.slice(start, end).map((meal, idx) => <Card key={idx} cardData={meal}></Card>)}

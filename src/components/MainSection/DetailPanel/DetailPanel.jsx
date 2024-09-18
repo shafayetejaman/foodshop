@@ -25,6 +25,11 @@ const DetailPanel = () =>
 
     useEffect(() =>
     {
+        window.scroll({
+            top: 0,
+            behavior: 'smooth'
+        });
+
         (async () =>
         {
             const mealData = await getMeal(params.id);
@@ -49,7 +54,7 @@ const DetailPanel = () =>
         <>
             {!meal && <div className='flex justify-center my-40'><span className="loading loading-spinner loading-lg"></span></div>}
             {meal && <>
-                <div className="lg:my-32 my-20 mx-2 lg:mx-auto text-white p-6 rounded-lg shadow-lg" style={{
+                <div className="lg:mt-36 mb-16 mt-32 mx-2 lg:mx-auto text-white p-6 rounded-lg shadow-lg" style={{
                     background: 'linear-gradient(to bottom right, #1a202c, #2d3748)'
                 }}>
 

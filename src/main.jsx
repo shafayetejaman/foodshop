@@ -16,10 +16,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="page/1" />,
-      },
-      {
-        path: "page/:page",
         element: <Cards></Cards>,
       },
       {
@@ -27,35 +23,16 @@ const router = createBrowserRouter([
         element: <DetailPanel></DetailPanel>,
       },
       {
-        path: "/categories/",
-        element: <Cards url="/categories"></Cards>,
-
-        children: [
-          {
-            path: ":category/page/:page",
-            element: <Cards url="/categories"></Cards>,
-          }
-        ]
+        path: "/categories/:categories",
+        element: <Cards url="categories"></Cards>,
       },
       {
-        path: "/origin/",
+        path: "/origin/:origin",
         element: <Cards url='origin'></Cards>,
-        children: [
-          {
-            path: ":origin/page/:page",
-            element: <Cards url='/origin'></Cards>,
-          }
-        ]
       },
       {
-        path: "/ingredients/",
-        element: <Cards url='/ingredients'></Cards>,
-        children: [
-          {
-            path: ":ingredient/page/:page",
-            element: <Cards url='/ingredients'></Cards>,
-          }
-        ]
+        path: "/ingredients/:ingredient",
+        element: <Cards url='ingredients'></Cards>,
       },
     ]
   }
