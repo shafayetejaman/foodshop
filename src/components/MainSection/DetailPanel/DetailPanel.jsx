@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaUniversity, FaTag, FaUtensils } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import { getMeal } from "../../../context/api/api";
+import { getMeal } from "../../../context/api/APIProvider";
 
 function getIngredients(mealData)
 {
