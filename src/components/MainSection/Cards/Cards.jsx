@@ -3,7 +3,7 @@ import Card from "../Card/Card";
 import { getMeal, useAPI, getMealByCategory, getMealByCountry, getMealByIngredient } from "../../../context/api/APIProvider";
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useSearchBox } from '../../../context/search/SearchProvider';
-import { useMemo } from 'react';
+
 
 const MAX_PAGE_ITEMS = 12;
 
@@ -87,10 +87,9 @@ export default function Cards({ url })
 
     }, [mealList]);
 
-
     useEffect(() =>
     {
-        if (searchBox.length == 0)
+        if (searchBox.length === 0)
         {
             setSearchParams({ page: pageNumber });
             setFilteredList(cardList);
@@ -98,22 +97,20 @@ export default function Cards({ url })
         }
 
         let search = searchBox.toLowerCase();
+        setPageNumber(1)
         setSearchParams({ page: pageNumber, search: search });
 
-        const newList = useMemo(() =>
-        {
-            return cardList.filter(item => (
-                item.name?.toLowerCase().includes(search) ||
-                item.category?.toLowerCase().includes(search) ||
-                item.country?.toLowerCase().includes(search) ||
-                item.tags?.includes(val => val.toLowerCase().includes(search))
-            ));
-            
-        }, [searchBox, cardList]);
+        const newList = cardList.filter(item => (
+            item.name?.toLowerCase().includes(search) ||
+            item.category?.toLowerCase().includes(search) ||
+            item.country?.toLowerCase().includes(search) ||
+            item.tags?.some(tag => tag.toLowerCase().includes(search))
+        ));
 
         setFilteredList(newList);
 
     }, [searchBox]);
+
 
 
 
@@ -130,7 +127,7 @@ export default function Cards({ url })
 
     return (
         <section className='mt-36 mb-20 md:mx-16 mx-8'>
-            {!cardList && <div className='flex justify-center my-20'><span className="loading loading-spinner loading-lg"></span></div>}
+            {!cardList && <div className='flex justify-center my-20'><progress className="progress w-56"></progress></div>}
             {filteredList && <>
                 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10'>
                     {filteredList?.slice(start, end).map((meal, idx) => <Card key={idx} cardData={meal}></Card>)}

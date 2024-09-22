@@ -5,6 +5,7 @@ import { useAPI } from '../../context/api/APIProvider';
 import { FaAngleRight } from 'react-icons/fa6';
 import { RiArrowDownSLine } from "react-icons/ri";
 import { useSearchBox } from '../../context/search/SearchProvider';
+import mainImg from "../../assets/main_icon.png";
 
 
 function NavBar() 
@@ -93,7 +94,7 @@ function NavBar()
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
                     <div className="flex items-center">
-                        <Link to={'/?page=1'} className="flex-shrink-0 text-2xl font-bold">FoodShop</Link>
+                        <Link to={'/?page=1'} className="flex-shrink-0 text-2xl font-bold"><img className='w-8 inline-block me-1' src={mainImg} alt="" />  FoodShop</Link>
                     </div>
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
@@ -213,7 +214,6 @@ function NavBar()
                             </div>
                             <input
                                 type="text"
-                                // border border-transparent rounded-md leading-5 bg-gray-700 text-white placeholder-gray-400 focus:border-white sm:text-sm transition-all duration-200 ease-in-out
                                 className="block w-full pl-10 pr-3 py-2 border-2 border-transparent rounded-md leading-5 bg-gray-700 text-white placeholder-gray-400 focus:border-white sm:text-sm transition-all duration-200 ease-in-out"
                                 placeholder="Search"
                                 value={searchBox}
@@ -226,9 +226,9 @@ function NavBar()
 
             </div>
 
-            <div className="bg-gray-800 text-gray-300 p-2 text-sm">
+            <div className="bg-gray-800 text-gray-300 p-1 text-sm">
                 <div className="container mx-auto">
-                    {path.map((val, idx) => <span key={idx}>{val ? val.replace(/-/g, " ") : "Home"}<FaAngleRight className='inline-block mx-2'></FaAngleRight></span>)}
+                    {path.map((val, idx) => <span className='font-semibold text-base' key={idx}>{val ? val.replace(/-/g, " ") : "Home"}<FaAngleRight className='inline-block mx-2'></FaAngleRight></span>)}
                 </div>
             </div>
         </nav>
