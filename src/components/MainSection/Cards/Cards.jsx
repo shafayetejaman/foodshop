@@ -3,6 +3,7 @@ import Card from "../Card/Card";
 import { getMeal, useAPI, getMealByCategory, getMealByCountry, getMealByIngredient } from "../../../context/api/APIProvider";
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useSearchBox } from '../../../context/search/SearchProvider';
+import Loading from '../../Loading/Loading';
 
 
 const MAX_PAGE_ITEMS = 12;
@@ -127,7 +128,7 @@ export default function Cards({ url })
 
     return (
         <section className='mt-36 mb-20 md:mx-16 mx-8'>
-            {!cardList && <div className='flex justify-center my-20'><progress className="progress w-56"></progress></div>}
+            {!cardList && <Loading></Loading> }
             {filteredList && <>
                 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10'>
                     {filteredList?.slice(start, end).map((meal, idx) => <Card key={idx} cardData={meal}></Card>)}

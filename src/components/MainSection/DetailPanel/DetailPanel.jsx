@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaUniversity, FaTag, FaUtensils } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { getMeal } from "../../../context/api/APIProvider";
+import Loading from '../../Loading/Loading';
 
 function getIngredients(mealData)
 {
@@ -52,7 +53,7 @@ const DetailPanel = () =>
 
     return (
         <>
-            {!meal && <div className='flex justify-center my-40'><progress className="progress w-56"></progress></div>}
+            {!meal && <Loading speed={5}></Loading>}
             {meal && <>
                 <div className="lg:mt-36 mb-16 mt-32 mx-2 lg:mx-auto text-white p-6 rounded-lg shadow-lg" style={{
                     background: 'linear-gradient(to bottom right, #1a202c, #2d3748)'
