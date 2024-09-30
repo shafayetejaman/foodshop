@@ -18,8 +18,7 @@ You can view the live website here: [FoodShop Live Demo](https://comforting-stro
 ## Tech Stack
 
 - **Frontend:** React, Tailwind CSS
-- **Backend:** (Optional if you have a backend integration)
-- **Deployment:** (Include Netlify, Vercel, etc. if applicable)
+- **Deployment:** Netlify
 
 ## Installation
 
