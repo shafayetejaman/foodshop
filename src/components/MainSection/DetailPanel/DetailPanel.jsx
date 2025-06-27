@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FaUniversity, FaTag, FaUtensils } from 'react-icons/fa';
+import { FaTag, FaUniversity, FaUtensils } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { getMeal } from "../../../context/api/APIProvider";
 import Loading from '../../Loading/Loading';
 
-function getIngredients(mealData)
-{
+function getIngredients(mealData) {
     let result = [];
-    for (let idx = 1; idx <= 20; idx++)
-    {
+    for (let idx = 1; idx <= 20; idx++) {
         if (!mealData[`strIngredient${idx}`]) return result;
 
         result.push({ name: mealData[`strIngredient${idx}`], measurement: mealData[`strMeasure${idx}`] });
@@ -17,22 +15,19 @@ function getIngredients(mealData)
 }
 
 
-const DetailPanel = () =>
-{
+const DetailPanel = () => {
     const [isIngredientExpanded, setIsIngredientExpanded] = useState(false);
     const [isRecipeExpanded, setIsRecipeExpanded] = useState(false);
     const params = useParams();
     const [meal, setMeal] = useState(null);
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         window.scroll({
             top: 0,
             behavior: 'smooth'
         });
 
-        (async () =>
-        {
+        (async () => {
             const mealData = await getMeal(params.id);
 
             setMeal({
@@ -48,7 +43,7 @@ const DetailPanel = () =>
             });
 
         })();
-    }, []);
+    });
 
 
     return (
@@ -125,7 +120,7 @@ const DetailPanel = () =>
 
                             <div>
                                 <h2 className="text-xl font-semibold mb-2 flex items-center">
-                                    <FaTag className="mr-2" /> Tags
+                                    <FaTag className="mr-2" />
                                 </h2>
                                 <div className="flex flex-wrap gap-2">
                                     {meal.tags?.map((tag, index) => (

@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Card from "../Card/Card";
-import { getMeal, useAPI, getMealByCategory, getMealByCountry, getMealByIngredient } from "../../../context/api/APIProvider";
 import { useParams, useSearchParams } from 'react-router-dom';
+import { getMeal, getMealByCategory, getMealByCountry, getMealByIngredient, useAPI } from "../../../context/api/APIProvider";
 import { useSearchBox } from '../../../context/search/SearchProvider';
 import Loading from '../../Loading/Loading';
+import Card from "../Card/Card";
 
 
 const MAX_PAGE_ITEMS = 12;
 
-function scrollTop()
-{
+function scrollTop() {
     window.scroll({
         top: 0,
         behavior: 'smooth'
     });
 }
 
-export default function Cards({ url })
-{
+export default function Cards({ url }) {
     const [cardList, setCardList] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const [pageNumber, setPageNumber] = useState(1);
@@ -28,12 +26,9 @@ export default function Cards({ url })
     const [filteredList, setFilteredList] = useState(null);
 
 
-    useEffect(() =>
-    {
-        (async () =>
-        {
-            switch (url)
-            {
+    useEffect(() => {
+        (async () => {
+            switch (url) {
                 case "ingredient":
                     setMealList(await getMealByIngredient(params.ingredient.replace(/-/g, "_")));
                     break;
@@ -47,8 +42,7 @@ export default function Cards({ url })
                     break;
 
                 default:
-                    if (meals)
-                    {
+                    if (meals) {
                         setMealList(meals);
                     }
                     break;
@@ -58,18 +52,15 @@ export default function Cards({ url })
     }, [meals, params[url]]);
 
 
-    useEffect(() =>
-    {
-        (async () =>
-        {
+    useEffect(() => {
+        (async () => {
             if (!mealList) return;
 
             scrollTop();
             setPageNumber(1);
             setCardList(null);
 
-            const data = await Promise.all(mealList.map(async (meal) =>
-            {
+            const data = await Promise.all(mealList.map(async (meal) => {
                 const mealData = await getMeal(meal.idMeal);
                 return {
                     id: mealData.idMeal,
@@ -88,10 +79,8 @@ export default function Cards({ url })
 
     }, [mealList]);
 
-    useEffect(() =>
-    {
-        if (searchBox.length === 0)
-        {
+    useEffect(() => {
+        if (searchBox.length === 0) {
             setSearchParams({ page: pageNumber });
             setFilteredList(cardList);
             return;
@@ -115,8 +104,7 @@ export default function Cards({ url })
 
 
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         setSearchParams({ page: pageNumber });
         scrollTop();
 
@@ -128,7 +116,7 @@ export default function Cards({ url })
 
     return (
         <section className='mt-36 mb-20 md:mx-16 mx-8'>
-            {!cardList && <Loading></Loading> }
+            {!cardList && <Loading></Loading>}
             {filteredList && <>
                 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10'>
                     {filteredList?.slice(start, end).map((meal, idx) => <Card key={idx} cardData={meal}></Card>)}
