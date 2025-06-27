@@ -120,7 +120,7 @@ const DetailPanel = () => {
 
                             <div>
                                 <h2 className="text-xl font-semibold mb-2 flex items-center">
-                                    <FaTag className="mr-2" />
+                                    <FaTag className="mr-2" /> Tags
                                 </h2>
                                 <div className="flex flex-wrap gap-2">
                                     {meal.tags?.map((tag, index) => (
